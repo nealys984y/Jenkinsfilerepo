@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+
+  environment {
+    REPO_URL = 'https://github.com/nealys984y/docker.git'
+    REPO_BRANCH = 'master' // or any other branch you want to checkout
+    DOCKER_IMAGE_NAME = 'ys984yy/docker_training'
+  }
+
+stages {
+  stage('Checkout Code') {
+    steps {
+      script {
+        checkout([$class: 'GitSCM',
+          branches: [[name: REPO_BRANCH]],
+          userRemoteConfigs: [[
+            url: REPO_URL
+          ]]
+        ])
+      }
+    }
+  }
+
+  stage('Build Docker Image') {
+    steps {
+      script {
+        docker.build("${DOCKER_IMAGE_NAME}")
+      }
+    }
+   }
+  }
+}
