@@ -12,12 +12,10 @@ stages {
   stage('Checkout Code') {
     steps {
       script {
-        checkout([$class: 'GitSCM',
-          branches: [[name: REPO_BRANCH]],
-          userRemoteConfigs: [[
-            url: REPO_URL,
-            credentialsID: "${GIT_TOKEN}"
-          ]]
+        checkout scmGit(
+          branches: [[name: 'main']],
+          userRemoteConfigs: [[credentialsId: 'github-pat',
+            url: 'https://github.com/nealys984y/docker-jenkins.git']])
         ])
       }
     }
