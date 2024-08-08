@@ -15,7 +15,7 @@ stages {
           branches: [[name: REPO_BRANCH]],
           userRemoteConfigs: [[
             url: REPO_URL,
-            credentialsID: 'github-pat'
+            credentialsID: 'github-token'
           ]]
         ])
       }
