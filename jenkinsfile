@@ -16,7 +16,6 @@ stages {
           branches: [[name: 'main']],
           userRemoteConfigs: [[credentialsId: 'github-pat',
             url: 'https://github.com/nealys984y/docker-jenkins.git']])
-        ])
       }
     }
   }
