@@ -7,7 +7,7 @@ pipeline {
     DOCKER_IMAGE_NAME = 'ys984y/docker_training'
     GIT_TOKEN= 'github-pat'
     BUILD_ARG1= 'value1'
-    BUILD_ARG2= 'value2'
+    BUILD_ARG2= '${GIT_TOKEN}'
   }
 
 stages {
