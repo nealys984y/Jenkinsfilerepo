@@ -25,7 +25,9 @@ stages {
   stage('Build Docker Image') {
     steps {
       script {
-        app = docker.build("${DOCKER_IMAGE_NAME}", "--build-arg ARG1=${BUILD_ARG1} --build-arg ARG2=${BUILD_ARG2} .")
+        withCredentials([string(credentialsId: 'github-pat', variable: 'GIT_PAT')]){
+        app = docker.build("${DOCKER_IMAGE_NAME}", "--build-arg ARG1=${GIT_PAT} --build-arg ARG2=${BUILD_ARG2} .")
+        }
       }
     }
    }
