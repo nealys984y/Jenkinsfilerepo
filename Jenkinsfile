@@ -4,7 +4,7 @@ node {
     stage('Clone repository') {
       
 
-        checkout scm
+        checkout 
     }
 
     stage('Build image') {
@@ -28,3 +28,12 @@ node {
         }
     }
 }
+
+checkout([
+        $class: 'GitSCM', 
+        branches: [[name: '*/master']], 
+        doGenerateSubmoduleConfigurations: false, 
+        extensions: [[$class: 'CleanCheckout']], 
+        submoduleCfg: [], 
+        userRemoteConfigs: [[url: 'https://github.com/brandonjones085/docker.git']]
+    ])
