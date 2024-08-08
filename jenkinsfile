@@ -6,6 +6,8 @@ pipeline {
     REPO_BRANCH = 'main' // or any other branch you want to checkout
     DOCKER_IMAGE_NAME = 'ys984y/docker_training'
     GIT_TOKEN= 'github-pat'
+    BUILD_ARG1= 'value1'
+    BUILD_ARG2= 'value2'
   }
 
 stages {
@@ -23,7 +25,7 @@ stages {
   stage('Build Docker Image') {
     steps {
       script {
-        app = docker.build("${DOCKER_IMAGE_NAME}")
+        app = docker.build("${DOCKER_IMAGE_NAME}", "--build-arg ARG1=${BUILD_ARG1} --build-arg ARG2=${BUILD_ARG2})
       }
     }
    }
