@@ -41,7 +41,7 @@ stages {
                  printenv
             
             """
-            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=GIT_PAT1 .")
+            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=GIT_PAT .")
            } 
          }
 
