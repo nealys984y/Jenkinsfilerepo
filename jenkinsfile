@@ -1,12 +1,6 @@
 pipeline {
   agent any
 
-  tools {
-
-    Docker 'docker'
-
-  }
-
   environment {
     REPO_URL = 'https://github.com/nealys984y/docker-jenkins.git'
     REPO_BRANCH = 'main' // or any other branch you want to checkout
@@ -27,6 +21,32 @@ stages {
       }
     }
   }
+  stage('Create secret.txt') {
+      steps {
+        script{
+            
+            def requirements= """
+            cpp-python-module==0.1.0
+            g-genai==0.0.2
+            """
+            writeFile file: 'requirements.txt', text: requirements
+        }
+      }
+    }
+  stage('Create docker secret') {
+      steps {
+        script{
+            withCredentials([usernamePassword(credentialsId: 'GIT_PAT', passwordVariable: 'GIT_USER', usernameVariable: 'GIT_PAT1')]) {
+            sh """ echo ${GIT_PAT1} > git_auth_token
+                   chmod 600 git_auth_token
+                   ls -lrt
+            
+            """
+           } 
+         }
+
+      }
+    }    
 
   stage('Build Docker Image') {
     steps {
@@ -43,11 +63,19 @@ stages {
       script {
        app.inside {
             sh """ echo 'Tests passed'
-                    
-                    set +x 
-                    /usr/bin/docker --version
+                   ls -lrt
+                   cat requirements.txt
+                   cat git_auth_token
                """
         }
+
+      }
+    }
+  }
+  stage('Test image2') {
+    steps {
+      script {
+       sh """ docker --version """
 
       }
     }
