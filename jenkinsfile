@@ -36,8 +36,9 @@ stages {
   stage('Create docker secret') {
       steps {
         script{
-            withCredentials([usernamePassword(credentialsId: 'GIT_PAT', passwordVariable: 'GIT_USER', usernameVariable: 'GIT_PAT1')]) {
-            sh """ echo ${GIT_PAT1} > git_auth_token
+            withCredentials([usernamePassword(credentialsId: 'GIT_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT1')]) {
+            sh """ echo "${GIT_USER}"
+                   echo "${GIT_PAT1}" > git_auth_token
                    chmod 600 git_auth_token
                    ls -lrt
             
