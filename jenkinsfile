@@ -39,7 +39,7 @@ stages {
               export git_auth_token=${GIT_PAT1} 
               printenv
               """
-            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,env=git_auth_token .")
+            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,env=GIT_PAT1 .")
            } 
          }
 
