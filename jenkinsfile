@@ -35,7 +35,8 @@ stages {
       steps {
         script{
             withCredentials([usernamePassword(credentialsId: 'GIT_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT2')]) {
-            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=GIT_AUTH_TOKEN,env=GIT_PAT2 .")
+            sh """ export GIT_AUTH_TOKEN=${GIT_PAT2} """
+            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=GIT_AUTH_TOKEN,env=GIT_AUTH_TOKEN .")
            } 
          }
 
