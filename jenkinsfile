@@ -44,7 +44,7 @@ stages {
                    ls -lrt
             
             """
-            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=git_auth_token .")
+            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=GIT_PAT1 .")
            } 
          }
 
