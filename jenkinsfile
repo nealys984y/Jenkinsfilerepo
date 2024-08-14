@@ -1,6 +1,12 @@
 pipeline {
   agent any
 
+  tools {
+
+    Docker 'docker'
+
+  }
+
   environment {
     REPO_URL = 'https://github.com/nealys984y/docker-jenkins.git'
     REPO_BRANCH = 'main' // or any other branch you want to checkout
