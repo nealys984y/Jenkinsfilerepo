@@ -5,6 +5,7 @@ pipeline {
     REPO_URL = 'https://github.com/nealys984y/docker-jenkins.git'
     REPO_BRANCH = 'main' // or any other branch you want to checkout
     DOCKER_IMAGE_NAME = 'ys984y/docker_training'
+    SECRET_FILE = '/tmp/docker-secret'
     GIT_TOKEN= 'GIT_PAT'
     BUILD_ARG1= 'value1'
     BUILD_ARG2= '${GIT_TOKEN}'
@@ -43,21 +44,14 @@ stages {
                    ls -lrt
             
             """
+            app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=git_auth_token .")
            } 
          }
 
       }
     }    
 
-  stage('Build Docker Image') {
-    steps {
-      script {
-        withCredentials([usernamePassword(credentialsId: 'GIT_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT1')]){
-        app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=git_auth_token .")
-        }
-      }
-    }
-   }
+
 
   stage('Test image') {
     steps {
