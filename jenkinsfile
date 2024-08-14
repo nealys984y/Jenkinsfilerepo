@@ -62,7 +62,9 @@ stages {
   stage('Test image2') {
     steps {
       script {
-       sh """ docker --version """
+       sh """ docker --version
+              printenv 
+          """
 
       }
     }
