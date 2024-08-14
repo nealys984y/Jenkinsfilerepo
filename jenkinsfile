@@ -6,9 +6,7 @@ pipeline {
     REPO_BRANCH = 'main' // or any other branch you want to checkout
     DOCKER_IMAGE_NAME = 'ys984y/docker_training'
     SECRET_FILE = '/tmp/docker-secret'
-    GIT_TOKEN= 'GIT_PAT'
-    BUILD_ARG1= 'value1'
-    BUILD_ARG2= '${GIT_TOKEN}'
+  
   }
 
 stages {
@@ -38,10 +36,9 @@ stages {
       steps {
         script{
             withCredentials([usernamePassword(credentialsId: 'GIT_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT1')]) {
-            sh """ echo "${GIT_USER}"
-                   echo "${GIT_PAT1}" > git_auth_token
-                   chmod 600 git_auth_token
-                   ls -lrt
+            sh """ 
+                 export GIT_PAT=${GIT_PAT1}
+                 printenv
             
             """
             app = docker.build("${DOCKER_IMAGE_NAME}", "--secret id=git_auth_token,src=GIT_PAT1 .")
