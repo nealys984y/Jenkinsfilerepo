@@ -37,7 +37,8 @@ stages {
       script {
        app.inside {
             sh """ echo 'Tests passed'
-                    docker --version
+                    which docker
+                    /usr/bin/docker --version
                """
         }
 
